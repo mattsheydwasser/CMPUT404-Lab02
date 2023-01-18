@@ -6,6 +6,7 @@ The socket type is determined by the second arguement. We use SOCK_STREAM as a d
 
 Question 2:
 
+The difference between a client socket and server socket is that a client socket connects to a listening server. A server socket gets bound to a port and listens for any incoming connection from a client.
 
 Question 3:
 
