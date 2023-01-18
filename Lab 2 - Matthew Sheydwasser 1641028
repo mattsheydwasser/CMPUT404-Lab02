@@ -10,11 +10,16 @@ The difference between a client socket and server socket is that a client socket
 
 Question 3:
 
+If we did not want the socket to reuse the same port, we would set the value of socket.SO_REUSEADDR to zero, because it will reuse an address if it is any nonzero value.
 
 Question 4:
 
+The information we recieve is the address that is connected to the server socket. This is the remote address (raddr) which includes the address and port.
 
 Question 5:
 
+Recv() returns the data sent to the server. In the case of using the command "echo 'Foobar' | nc localhost 8001 -q 1", the data returned will be b'Foobar\n'.
 
 Question 6:
+
+Link to the code on Github: https://github.com/mattsheydwasser/CMPUT404-Lab02

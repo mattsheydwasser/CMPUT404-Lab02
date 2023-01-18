@@ -1,19 +1,10 @@
-# Lab 2 
-# Matthew Sheydwasser - 1641028
-#
-# Referenced the sample code given on eclass and 
-# this site to create server socket to listen to connections
-# https://stackoverflow.com/questions/54408940/how-to-write-a-python-echo-server-that-doesnt-disconnect-after-first-echo
-# Answer written by user "Please don't judge me", https://stackoverflow.com/users/9003282/please-dont-judge-me
-
-
 
 import socket
 import time
 
 def main():
     
-    host = '127.0.0.1'
+    host = 'www.google.com'
     port = 8001
     buffer = 1024
 
