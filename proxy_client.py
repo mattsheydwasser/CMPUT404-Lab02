@@ -1,10 +1,8 @@
 # Lab 2 
 # Matthew Sheydwasser - 1641028
 #
-# Referenced the sample code given on eclass and 
-# this site to create socket and connect to www.google.com:
-# https://pythonprogramminglanguage.com/socket-client/
-
+# Referenced the sample code given on eclass and the
+# old lab video demonstrations
 
 import socket
 
@@ -62,9 +60,9 @@ def connect_to_server(sock, host, port):
 
 def main():
 
-    host = 'www.google.com'
-    req = "GET / HTTP/1.0\r\n\r\n"
-    port = 80
+    host = 'localhost'
+    req = "GET / HTTP/1.0\r\nHost: www.google.com\r\n\r\n"
+    port = 8001
     buffer = 4096
 
     # create socket, and connect to server
