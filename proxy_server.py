@@ -5,11 +5,12 @@
 # old lab video demonstrations
 
 import socket
-import time
+from multiprocessing import Process
 
 
 HOST = ''
 PORT = 8001
+BUFFER = 4096
 
 def get_ip(host):
 
@@ -20,11 +21,22 @@ def get_ip(host):
 
     return ip
 
+def handle_proxy(addr, conn, proxy):
+
+    send_data = conn.recv(BUFFER)
+    print(f"Proxy server received {send_data} from {addr}. Sending . . .")
+    proxy.sendall(send_data)
+
+    proxy.shutdown(socket.SHUT_WR)
+
+    end_data = proxy.recv(BUFFER)
+    print(f'Sending recieved data to client at {addr}')
+    conn.send(end_data)
+
 def main():
     
     host = 'www.google.com'
     port = 80
-    buffer = 1024
 
     # acts as server to client
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as proxy_start:
@@ -47,17 +59,12 @@ def main():
                 ip = get_ip(host)
 
                 # .connect only used on clients, shows how it is acting as client
-                proxy_end.connect(ip, port)
+                proxy_end.connect((ip, port))
 
-                send_data = conn.recv(buffer)
-                print(f"Sending recieved data {send_data}")
-                proxy_end.sendall(send_data)
-
-                proxy_end.shutdown(socket.SHUT_WR)
-
-                end_data = proxy_end.recv(buffer)
-                print(f'Sending recieved data {end_data} to client')
-                conn.send(end_data)
+                # start a Process daemon to handle multiple connections
+                proc = Process(target=handle_proxy, args= (addr, conn, proxy_end))
+                proc.daemon = True
+                proc.start()
 
             conn.close()
 
